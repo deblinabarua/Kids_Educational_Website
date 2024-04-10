@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Light gray background */
+            text-align: center;
+            padding-top: 50px;
+            background-image: url("2277.jpg");
+        }
+
+        form {
+            margin: 0 auto;
+            width: 400px;
+            background-color: #ffffff; /* White background */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="password"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc; /* Light gray border */
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        p {
+            color: #555; /* Dark gray text */
+            font-size: 14px;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+
+        a {
+            color: #007bff; /* Blue link color */
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST" action="sign_up.php">
+        <table>
+            <tr>
+                <td>First Name:</td>
+                <td><input type="text" name="f_name"></td>
+            </tr>
+            <tr>
+               <td>Last Name:</td>
+               <td><input type="text" name="l_name"></td>
+            </tr>
+            <tr>
+               <td>Phone Number:</td>
+               <td><input type="tel" name="telephone"></td>
+            </tr>
+            <tr>
+               <td>Username:</td>
+               <td><input type="text" name="username"></td>
+            </tr>
+            <tr>
+               <td>Password:</td>
+               <td><input type="password" name="password" id="pwd"></td>
+            </tr>
+            <tr>
+               <td>Show Password:</td>
+               <td><input type="checkbox" onclick="showpwd()"></td>
+            </tr>
+        </table>
+        <p>Tip: Please ensure that the password you have entered is correct by clicking 'Show Password'.</p>
+        <input type="submit" value="Submit">
+        <p>Already a member? Click <a href="edu_kids.html">here</a> to login.</p>
+    </form>
+    
+    <script type="text/JavaScript">
+        function showpwd(){
+            var check=document.getElementById("pwd");
+            if (check.type=="password"){
+                check.type="text";
+            }
+            else{
+                check.type="password";
+            }
+        }
+    </script>
+</body>
+</html>

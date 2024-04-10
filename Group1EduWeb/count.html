@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counting Objects Quiz</title>
+    <link rel="stylesheet" href="math.css">
+</head>
+<body>
+    <div id="container">
+        <h2>Counting Objects Quiz</h2>
+        <img id="image" src="" alt="Objects in the image">
+        <p>How many objects do you see in the image?</p>
+        <form id="quizForm" onsubmit="return checkAnswer()">
+            <input type="number" id="answerInput" min="0" autocomplete="off">
+            <button type="submit">Check Answer</button>
+            <button type="button" onclick="nextQuestion()">Next Image</button>
+        </form>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        var images = ["banana.jpeg", "apples.jpg", "mango.jpeg"]; // Add more image paths here
+        var correctAnswers = [4, 10, 3]; // Add corresponding correct answers here
+        var currentIndex = 0;
+
+        function nextQuestion() {
+            currentIndex = (currentIndex + 1) % images.length;
+            document.getElementById('image').src = images[currentIndex];
+            document.getElementById('result').textContent = '';
+            document.getElementById('answerInput').value = '';
+        }
+
+        function checkAnswer() {
+            var userAnswer = parseInt(document.getElementById('answerInput').value);
+            var correctAnswer = correctAnswers[currentIndex];
+
+            var resultMessage = document.getElementById('result');
+            if (userAnswer === correctAnswer) {
+                resultMessage.textContent = "Correct! There are indeed " + correctAnswer + " objects.";
+                resultMessage.style.color = "green";
+            } else {
+                resultMessage.textContent = "Try Again! The correct number of objects is " + correctAnswer + ".";
+                resultMessage.style.color = "red";
+            }
+
+            return false; // Prevent form submission
+        }
+
+        // Load the first image when the page loads
+        window.onload = function() {
+            document.getElementById('image').src = images[currentIndex];
+        };
+    </script>
+</body>
+</html>

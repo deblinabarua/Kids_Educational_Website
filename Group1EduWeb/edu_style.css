@@ -1,0 +1,62 @@
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('rocket.jpg'); /* Provided background image URL */
+            background-size: cover;
+            background-repeat: no-repeat;
+            font-family: 'Comic Sans MS', cursive, sans-serif; /* Using Kids friendly font */
+        }
+
+        .container {
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            height: 80vh;
+        }
+
+        .login-box {
+            background-color: rgba(16, 140, 188, 0.918);
+            padding: 20px;
+            margin-top: 120px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .login-box img {
+            width: 100px; /* Adjust the size of the cartoon image */
+            margin-bottom: 20px;
+        }
+
+        .login-box input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .login-box input[type="password"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .login-box input[type="submit"] {
+            width: 80%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #ff6f61; /* Eye-catching color for the submit button */
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .greetings{
+            justify-content: center;
+            display:flex;
+            color: blanchedalmond;
+            margin-top: 24px;
+        }

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number to Words Converter</title>
+   <link rel="stylesheet" href="math.css">
+</head>
+<body>
+    <div id="container">
+        <h2>Number to Words Converter</h2>
+        <p>Enter a number below:</p>
+        <form id="converterForm" onsubmit="return convertToWords()">
+            <input type="number" id="numberInput" min="0" autocomplete="off">
+            <button type="submit">Convert</button>
+        </form>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function convertToWords() {
+            var number = parseInt(document.getElementById('numberInput').value);
+            var words = numberToWords(number);
+            document.getElementById('result').textContent = words;
+            return false; // Prevent form submission
+        }
+
+        function numberToWords(number) {
+            // Define arrays for ones, tens, and teens
+            var ones = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+            var teens = ['', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+            var tens = ['', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+
+            // Function to convert less than 1000 to words
+            function convertLessThanOneThousand(num) {
+                if (num === 0) return '';
+                var words = '';
+                if (num >= 100) {
+                    words += ones[Math.floor(num / 100)] + ' hundred ';
+                    num %= 100;
+                }
+                if (num >= 20) {
+                    words += tens[Math.floor(num / 10)] + ' ';
+                    num %= 10;
+                }
+                if (num > 0) {
+                    if (num >= 11 && num <= 19) {
+                        words += teens[num - 10] + ' ';
+                    } else {
+                        words += ones[num] + ' ';
+                    }
+                }
+                return words.trim();
+            }
+
+            // Main function to convert the number to words
+            if (number === 0) {
+                return 'zero';
+            } else {
+                var words = '';
+                if (number < 0) {
+                    words += 'negative ';
+                    number = Math.abs(number);
+                }
+                var billions = Math.floor(number / 1000000000);
+                var millions = Math.floor((number % 1000000000) / 1000000);
+                var thousands = Math.floor((number % 1000000) / 1000);
+                var remainder = number % 1000;
+
+                if (billions > 0) {
+                    words += convertLessThanOneThousand(billions) + ' billion ';
+                }
+                if (millions > 0) {
+                    words += convertLessThanOneThousand(millions) + ' million ';
+                }
+                if (thousands > 0) {
+                    words += convertLessThanOneThousand(thousands) + ' thousand ';
+                }
+                if (remainder > 0) {
+                    words += convertLessThanOneThousand(remainder);
+                }
+
+                return words.trim();
+            }
+        }
+    </script>
+</body>
+</html>

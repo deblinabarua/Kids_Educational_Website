@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identify the Objects</title>
+    <link rel="stylesheet" href="shapei.css">
+    <style>
+        #resultMessage {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+        .shape-option label {
+            display: inline-block;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h2>Identifying Shapes Quiz</h2>
+        <img id="image" src="" alt="Objects in the image">
+        <p>What is the shape?</p>
+        <form id="quizForm" onsubmit="return checkAnswer()">
+            <div class="shape-option">
+                <label><input type="radio" name="shape" value="square"> Square</label>
+                <label><input type="radio" name="shape" value="circle"> Circle</label>
+                <label><input type="radio" name="shape" value="triangle"> Triangle</label>
+				 <label><input type="radio" name="shape" value="rectangle"> Rectangle</label>
+            </div>
+            <button type="submit">Check Answer</button>
+            <button type="button" onclick="nextQuestion()">Next Image</button>
+            <div id="resultMessage"></div> 
+        </form>
+    </div>
+
+    <script>
+        var images = ["square.png", "triangle.png", "circle.png", "rectangle.png"]; 
+        var correctShapes = [['square'], ['triangle'], ['circle'], ['rectangle']]; 
+        var currentIndex = 0;
+
+        function nextQuestion() {
+            currentIndex = (currentIndex + 1) % images.length;
+            document.getElementById('image').src = images[currentIndex];
+            document.getElementById('resultMessage').textContent = '';
+            // Uncheck all radio buttons
+            var radios = document.getElementsByName('shape');
+            radios.forEach(function(radio) {
+                radio.checked = false;
+            });
+        }
+
+        function checkAnswer() {
+            var selectedShape = document.querySelector('input[name="shape"]:checked').value;
+            var correctShape = correctShapes[currentIndex][0];
+            var resultMessage = document.getElementById('resultMessage');
+
+            if (selectedShape === correctShape) {
+                resultMessage.textContent = "Correct! The selected shape is correct.";
+                resultMessage.classList.remove('incorrect');
+                resultMessage.classList.add('correct');
+            } else {
+                resultMessage.textContent = "Incorrect. The correct shape is: " + correctShape;
+                resultMessage.classList.remove('correct');
+                resultMessage.classList.add('incorrect');
+            }
+
+            return false;
+        }
+        window.onload = function() {
+            document.getElementById('image').src = images[currentIndex];
+        };
+    </script>
+</body>
+</html>

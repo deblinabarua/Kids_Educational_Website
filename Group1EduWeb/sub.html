@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subtraction Quiz</title>
+    <link rel="stylesheet" href="math.css">
+</head>
+<body>
+    <div id="container">
+        <h2>Subtraction Quiz</h2>
+        <p>Enter your answer below:</p>
+        <form id="quizForm" onsubmit="return checkAnswer()">
+            <p id="question"></p>
+            <input type="number" id="answerInput" min="0" autocomplete="off">
+            <button type="submit">Check Answer</button>
+        </form>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function generateQuestion() {
+            var num1 = Math.floor(Math.random() * 10); // Generate random number between 0 and 9
+            var num2 = Math.floor(Math.random() * 10);
+            // Ensure num1 is greater than or equal to num2 for valid subtraction
+            if (num1 < num2) {
+                var temp = num1;
+                num1 = num2;
+                num2 = temp;
+            }
+            var correctAnswer = num1 - num2;
+
+            document.getElementById('question').textContent = num1 + " - " + num2 + " = ";
+            sessionStorage.setItem('correctAnswer', correctAnswer); // Store correct answer in session storage
+        }
+
+        function checkAnswer() {
+            var userAnswer = parseInt(document.getElementById('answerInput').value);
+            var correctAnswer = parseInt(sessionStorage.getItem('correctAnswer'));
+            var resultMessage = document.getElementById('result');
+
+            if (userAnswer === correctAnswer) {
+                resultMessage.textContent = "Congratulations! Your answer is correct.";
+                resultMessage.style.color = "green";
+            } else {
+                resultMessage.textContent = "Sorry, your answer is incorrect. Please try again.";
+                resultMessage.style.color = "red";
+            }
+
+            generateQuestion(); // Generate a new question after checking the answer
+            return false; // Prevent form submission
+        }
+
+        // Generate the first question when the page loads
+        window.onload = generateQuestion;
+    </script>
+</body>
+</html>

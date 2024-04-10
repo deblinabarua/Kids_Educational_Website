@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('engbc.jpg');
+            background-size: cover;
+        }
+        #container {
+            width: 400px;
+            padding: 20px;
+            
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h2>Article Quiz</h2>
+        <p>Enter "a" or "an" before the word:</p>
+        <form id="quizForm" onsubmit="return checkAnswer()">
+            <p id="question"></p>
+            <div>
+                <input type="radio" id="optionA" name="option" value="a">
+                <label for="optionA">A</label>
+                <input type="radio" id="optionAn" name="option" value="an">
+                <label for="optionAn">An</label>
+            </div>
+            <button type="submit">Check Answer</button>
+        </form>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function generateQuestion() {
+            var words = ["apple", "banana", "car", "elephant", "umbrella"];
+            var randomIndex = Math.floor(Math.random() * words.length);
+            var word = words[randomIndex];
+
+            var article = word.charAt(0).toLowerCase() === 'a' ||
+                          word.charAt(0).toLowerCase() === 'e' ||
+                          word.charAt(0).toLowerCase() === 'i' ||
+                          word.charAt(0).toLowerCase() === 'o' ||
+                          word.charAt(0).toLowerCase() === 'u' ? 'an' : 'a';
+
+            document.getElementById('question').textContent = "Enter '" + article + "' before the word: '" + word + "'";
+            sessionStorage.setItem('correctAnswer', article);
+        }
+
+        function checkAnswer() {
+            var correctAnswer = sessionStorage.getItem('correctAnswer');
+            var resultMessage = document.getElementById('result');
+
+            var optionA = document.getElementById('optionA').checked;
+            var optionAn = document.getElementById('optionAn').checked;
+
+            if ((optionA && correctAnswer === 'a') || (optionAn && correctAnswer === 'an')) {
+                resultMessage.textContent = "Congratulations! Your answer is correct.";
+                resultMessage.style.color = "green";
+            } else {
+                resultMessage.textContent = "Sorry, your answer is incorrect. Please try again.";
+                resultMessage.style.color = "red";
+            }
+
+            generateQuestion(); 
+            return false;
+        }
+        window.onload = generateQuestion;
+    </script>
+</body>
+</html>

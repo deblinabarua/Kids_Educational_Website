@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Division Quiz</title>
+    <link rel="stylesheet" href="math.css">
+</head>
+<body>
+    <div id="container">
+        <h2>Division Quiz</h2>
+        <p>Enter your answer below:</p>
+        <form id="quizForm" onsubmit="return checkAnswer()">
+            <p id="question"></p>
+            <input type="number" id="answerInput" min="0" autocomplete="off">
+            <button type="submit">Check Answer</button>
+        </form>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function generateQuestion() {
+            var dividend = Math.floor(Math.random() * 100) + 1; // Generate random number between 1 and 100
+            var divisor = Math.floor(Math.random() * 10) + 1; // Generate random number between 1 and 10
+            var correctAnswer = dividend / divisor;
+
+            document.getElementById('question').textContent = dividend + " ÷ " + divisor + " = ";
+            sessionStorage.setItem('correctAnswer', correctAnswer.toFixed(2)); // Store correct answer in session storage with 2 decimal places
+        }
+
+        function checkAnswer() {
+            var userAnswer = parseFloat(document.getElementById('answerInput').value);
+            var correctAnswer = parseFloat(sessionStorage.getItem('correctAnswer'));
+            var resultMessage = document.getElementById('result');
+
+            if (userAnswer === correctAnswer) {
+                resultMessage.textContent = "Congratulations! Your answer is correct.";
+                resultMessage.style.color = "green";
+            } else {
+                resultMessage.textContent = "Sorry, your answer is incorrect. Please try again.";
+                resultMessage.style.color = "red";
+            }
+
+            generateQuestion(); // Generate a new question after checking the answer
+            return false; // Prevent form submission
+        }
+
+        // Generate the first question when the page loads
+        window.onload = generateQuestion;
+    </script>
+</body>
+</html>
